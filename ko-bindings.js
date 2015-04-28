@@ -1,3 +1,7 @@
+/**
+  knockout bindings
+**/
+
 (function(ko) {
   ko.bindingHandlers['reference'] = {
       update: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
