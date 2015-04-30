@@ -70,8 +70,8 @@
   };
   
   // global utils facade
-  ko.utils.get = function(url, options) {
-    return http.get(url, options);
+  ko.rest = {
+    get: http.get
   };
-  
+
 })(ko);
