@@ -16,4 +16,21 @@
           element.innerHTML = description || '';
       }
   };
+  
+  var format1 = function(v, n, x) {
+      var re = '(\\d)(?=(\\d{' + (x || 3) + '})+' + (n > 0 ? '\\.' : '$') + ')';
+      return v.toFixed(Math.max(0, ~~n)).replace(new RegExp(re, 'g'), '$1,');
+  };
+  
+  ko.bindingHandlers['number'] = {
+      update: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
+          var options = ko.unwrap(valueAccessor()), text = '';
+          var value = parseFloat(ko.unwrap(options.value));
+          if (!isNaN(value)) {
+              text = format1(value, options.decimal || 0, options.digiGroup || 3);
+              if (options.currency) text = options.currency + ' ' + text;
+          } 
+          element.innerHTML = text;
+      }
+  };
 })(ko);
