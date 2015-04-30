@@ -44,6 +44,15 @@
   
   // modules
   var http = (function() {
+      // tojson 
+      function _tojson(txt) {
+        try { 
+          return ko.utils.parseJson(txt);
+        } 
+        catch(ex) {  
+          return txt;
+        }
+      }
       // send a get request
       function _get(url, options) {
           return new Promise(function(resolve, reject) {
@@ -52,7 +61,11 @@
                   open("GET", url, true);
                   onreadystatechange = function() {
                       if (xhr.readyState == 4) {
-                          xhr.status == 200 ? resolve(responseText) : reject(xhr);
+                          if (xhr.status == 200) {
+                            resolve(_tojson(responseText));
+                          } else {
+                            reject(xhr);
+                          }
                       }
                   };
                   send();
