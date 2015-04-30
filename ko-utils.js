@@ -70,7 +70,7 @@
   };
   
   // global utils facade
-  ko.rest = {
+  ko.http = {
     get: http.get
   };
 
