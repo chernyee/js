@@ -46,7 +46,6 @@
   var http = (function() {
       // tojson 
       function _tojson(txt) {
-          console.log('1', txt);
           return ko.utils.parseJson(txt) || txt;
       }
       // send a get request
