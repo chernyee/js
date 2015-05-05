@@ -73,8 +73,8 @@
   })();
   
   // observable extenders
-  ko.extenders['validate'] = function(target, options) {
-    console.log("test");
+  ko.extenders['check'] = function(target, options) {
+    console.log("check");
   };
 
   ko.extenders['selected'] = function(target, options) {
