@@ -81,8 +81,7 @@
     var current, c = ko.computed(function() {
       var value = ko.unwrap(target), selected = options.store();
       if (current != value) {
-        options.store(value ? options.item : undefined);
-        current = value;
+        options.store((current = value) ? options.item : undefined);
       } else {
         target(current = (selected === options.item));
       }
