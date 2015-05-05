@@ -79,15 +79,13 @@
 
   ko.extenders['selected'] = function(target, options) {
     var current, c = ko.computed(function() {
-        var value = ko.unwrap(target), selected = options.store();
-        if (current != value) {
-            options.store(value ? options.item : undefined);
-            current = value;
-        } else {
-            if (value) {
-                target(current = false);
-            }
-        }
+      var value = ko.unwrap(target), selected = options.store();
+      if (current != value) {
+        options.store(value ? options.item : undefined);
+        current = value;
+      } else {
+        target(current = (selected === options.item));
+      }
     });
   };
 
