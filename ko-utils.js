@@ -78,16 +78,21 @@
   };
 
   ko.extenders['selected'] = function(target, options) {
-    var current, c = ko.computed(function() {
+    var current, unset = options.allowUnset === undefined ? true : options.allowUnset;
+    ko.computed(function() {
       var value = ko.unwrap(target), selected = options.store();
       if (current != value) {
-        options.store((current = value) ? options.item : undefined);
+        if (value || (!value && unset)) {
+          options.store((current = value) ? options.item : undefined);
+        } else {
+          target(current = true);
+        }
       } else {
         target(current = (selected === options.item));
       }
     });
   };
-
+  
   // global utils facade
   ko.http = {
     get: http.get
