@@ -1,5 +1,5 @@
 /**
-  knockout extenders
+  knockout utilities: extenders, modules etc.
 **/
 
 (function(ko) {
@@ -75,6 +75,20 @@
   // observable extenders
   ko.extenders['validate'] = function(target, options) {
     console.log("test");
+  };
+
+  ko.extenders['selected'] = function(target, options) {
+    var current, c = ko.computed(function() {
+        var value = ko.unwrap(target), selected = options.store();
+        if (current != value) {
+            options.store(value ? options.item : undefined);
+            current = value;
+        } else {
+            if (value) {
+                target(current = false);
+            }
+        }
+    });
   };
 
   // global utils facade
