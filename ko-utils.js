@@ -72,9 +72,32 @@
       };
   })();
   
+  // object property iterator
+	ko.utils.objectForEach = function(obj, cb) {
+		for (var prop in (typeof obj == 'object' ? obj : {})) {
+			if (cb(obj[prop], prop) === false) {
+				break;
+			}
+		}
+	};
+	
   // observable extenders
   ko.extenders['check'] = function(target, options) {
-    console.log("check");
+    // evaluators
+    function required(value, config, check) {
+			return config && !value;
+		};
+	  // kick start validation
+		ko.computed(function() {
+			var error, value = ko.unwrap(target);
+			ko.utils.objectForEach(options, function(item, key) {
+				var config = ko.unwap(item);
+				console.log(value, config);
+				/*if (eval("typeof " + name + " == 'function' ? " + name + "(value, config, item) : undefined")) {
+					error = item.text;
+				}*/
+			});
+		});
   };
 
   ko.extenders['selected'] = function(target, options) {
@@ -85,7 +108,7 @@
         if (value || (!value && unset)) {
           options.store((current = value) ? options.item : undefined);
         } else {
-          target(current = true);
+          setTimeout(function() { target(current = true); }, 0);
         }
       } else {
         target(current = (selected === options.item));
