@@ -81,23 +81,23 @@
 	
 	// observable extenders
 	ko.extenders['check'] = function(target, options) {
-        // initial validation properties
-        target.description = ko.observable(options.name || '');
-        target.errors = ko.observableArray();
-        target.hasError = ko.computed(function() { return target.errors().length ? true : false });
+		// initial validation properties
+		target.description = ko.observable(options.name || '');
+		target.errors = ko.observableArray();
+		target.hasError = ko.computed(function() { return target.errors().length ? true : false });
         
 		// evaluators
 		function required(value, config) {
-            return config && !value;
+			return config && !value;
 		}
         
-        function email(value, config) {
-            return value && config && /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,6}$/i.test(value) == false;
-        }
+		function email(value, config) {
+			return value && config && /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,6}$/i.test(value) == false;
+		}
         
-        function pattern(value, config) {
-            return value && config && (new RegExp(config)).test(value) == false;
-	    }
+		function pattern(value, config) {
+			return value && config && (new RegExp(config)).test(value) == false;
+		}
         
 		// kick start validation
 		ko.computed(function() {
@@ -107,7 +107,7 @@
 					errors.push(name);
 				}
 			});
-            target.errors(errors)
+			target.errors(errors)
 		});
 	};
 
