@@ -72,7 +72,7 @@
       };
   })();
   
-  // object property iterator
+	// object property iterator
 	ko.utils.objectForEach = function(obj, cb) {
 		for (var prop in (typeof obj == 'object' ? obj : {})) {
 			if (cb(obj[prop], prop) === false) {
@@ -81,24 +81,24 @@
 		}
 	};
 	
-  // observable extenders
-  ko.extenders['check'] = function(target, options) {
-    // evaluators
-    function required(value, config, check) {
+	// observable extenders
+	ko.extenders['check'] = function(target, options) {
+		// evaluators
+		function required(value, config, check) {
 			return config && !value;
 		};
-	  // kick start validation
+		// kick start validation
 		ko.computed(function() {
 			var error, value = ko.unwrap(target);
 			ko.utils.objectForEach(options, function(item, key) {
-				var config = ko.unwap(item);
+				var config = ko.unwrap(item);
 				console.log(value, config);
 				/*if (eval("typeof " + name + " == 'function' ? " + name + "(value, config, item) : undefined")) {
 					error = item.text;
 				}*/
 			});
 		});
-  };
+	};
 
   ko.extenders['selected'] = function(target, options) {
     var current, unset = options.allowUnset === undefined ? true : options.allowUnset;
