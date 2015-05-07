@@ -73,11 +73,11 @@
   })();
   
 	// object property iterator
-	ko.utils.objectForEach = function(obj, cb) {
+	/*ko.utils.objectForEach = function(obj, cb) {
 		for (var prop in (typeof obj == 'object' ? obj : {})) {
 			if (cb(obj[prop], prop) === false) break;
 		}
-	};
+	};*/
 	
 	// observable extenders
 	ko.extenders['check'] = function(target, options) {
@@ -102,7 +102,7 @@
 		// kick start validation
 		ko.computed(function() {
 			var errors = [], value = ko.unwrap(target);
-			ko.utils.objectForEach(options, function(item, name) {
+			ko.utils.objectForEach(options, function(name, item) {
 				if (eval("typeof " + name + " == 'function' ? " + name + "(value, ko.unwrap(item)) : undefined")) {
 					errors.push(name);
 				}
